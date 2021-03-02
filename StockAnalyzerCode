@@ -1,0 +1,82 @@
+Sub StockMarket()
+
+' Variables
+Dim ticker
+Dim yearlyChange
+Dim percentChange
+Dim totalStockVolume As Double
+Dim openPrice
+Dim closePrice
+Dim summaryTableRow
+Dim yearStart
+Dim wsCount As Integer
+
+' get the worksheet going
+wsCount = ActiveWorkbook.Worksheets.Count
+
+' add columns to display output information
+For ws = 1 To wsCount
+    Worksheets(ws).Range("I1") = "Ticker"
+    Worksheets(ws).Range("J1") = "Yearly Change"
+    Worksheets(ws).Range("K1") = "Percent Change"
+    Worksheets(ws).Range("L1") = "Total Stock Volume"
+
+    summaryTableRow = 2
+   
+    ' Loop through worksheets  
+   
+    For I = 2 To Worksheets(ws).Cells(Rows.Count, 1).End(xlUp).Row
+   
+        ' Determine ticker begin stock volume increment
+        ticker = Worksheets(ws).Cells(I, 1)
+        totalStockVolume = totalStockVolume = Cells(I, 7)
+
+        ' Determine opening price 
+        If openPrice = "" Then
+            openPrice = Worksheets(ws).Cells(I, 3)
+        End If
+
+        ' Establish the iteration. 
+        If ticker <> Worksheets(ws).Cells((I + 1), 1) Then 
+
+        ' determine closing price
+        closePrice = Worksheets(ws).Cells(I, 6)
+        ' calculate yearly change
+        yearlyChange = openPrice - closePrice 
+
+        ' Output ticker to worksheet
+        Worksheets(ws).Range("I" & summaryTableRow).Value = ticker
+
+        ' Output yearly change to worksheet, but don't forget to express yourself with creative, aesthetically pleasing formatting
+        ' that readers of all skill levels will be able to interpret.
+        Worksheets(ws).Range("J" & summaryTableRow).Value = yearlyChange
+        If yearlyChange > 0 Then
+        Worksheets(ws).Range("J" & summaryTableRow).Interior.ColorIndex = 4 'Green 
+        Else 
+        Worksheets(ws).Range("J" & summaryTableRow).Interior.ColorIndex = 3 'Red
+        End If 
+
+        ' percent changed output to worksheet in appropriate numerical format.
+        If startPrice <> closePrice Then 
+            percentChange = yearlyChange / closePrice
+        Else
+            percentChange = 0
+        End If 
+        Worksheets(ws).Range("K" & summaryTableRow).Value = percentChange
+        Worksheets(ws).Range("K" & summaryTableRow).NumberFormat = "0.00%"
+
+        ' Output the stock volume
+        Worksheets(ws).Range("L" & summaryTableRow).Value = totalStockVolume 
+
+        ' Time to wrap things up
+        summaryTableRow = summaryTableRow + 1
+        totalStockVolume = 0
+
+        End If
+
+      
+
+        Next I 
+Next ws
+
+End Sub 
