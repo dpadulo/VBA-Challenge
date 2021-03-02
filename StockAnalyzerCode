@@ -1,17 +1,17 @@
 Sub StockMarket()
 
-' Variables
+' Define the Variables
 Dim ticker
 Dim yearlyChange
 Dim percentChange
-Dim totalStockVolume As Double
 Dim openPrice
 Dim closePrice
 Dim summaryTableRow
 Dim yearStart
 Dim wsCount As Integer
+Dim totalStockVolume As Double
 
-' get the worksheet going
+' Which worksheets to work with 
 wsCount = ActiveWorkbook.Worksheets.Count
 
 ' add columns to display output information
@@ -73,8 +73,6 @@ For ws = 1 To wsCount
         totalStockVolume = 0
 
         End If
-
-      
 
         Next I 
 Next ws
